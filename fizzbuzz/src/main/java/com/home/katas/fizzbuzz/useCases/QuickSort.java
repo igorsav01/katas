@@ -1,5 +1,8 @@
 package com.home.katas.fizzbuzz.useCases;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class QuickSort {
 
     /* This function takes last element as pivot,
@@ -8,7 +11,7 @@ public class QuickSort {
            smaller (smaller than pivot) to left of
            pivot and all greater elements to right
            of pivot */
-    int partition(int arr[], int low, int high) {
+    int partition(int[] arr, int low, int high) {
         int pivot = arr[high];
         int i = (low - 1); // index of smaller element
         for (int j = low; j < high; j++) {
@@ -32,7 +35,7 @@ public class QuickSort {
         return i + 1;
     }
 
-    public void sort(int arr[], int start, int end)
+    void sort(int[] arr, int start, int end)
     {
         if (start < end)
         {
@@ -41,5 +44,10 @@ public class QuickSort {
             sort(arr, start, pi-1);
             sort(arr, pi+1, end);
         }
+    }
+
+    public int[] sortArray(int[] arrayToSort){
+        sort(arrayToSort, 0, arrayToSort.length - 1);
+        return arrayToSort;
     }
 }
