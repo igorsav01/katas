@@ -1,14 +1,11 @@
 package com.home.katas.fizzbuzz;
 
-import com.home.katas.fizzbuzz.helpers.Randomizer;
+import com.home.katas.fizzbuzz.useCases.MergeSort;
 import com.home.katas.fizzbuzz.useCases.QuickSort;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -23,11 +20,14 @@ public class FizzBuzzTest {
     @Mock
     private QuickSort quickSort;
 
+    @Mock
+    private MergeSort mergeSort;
+
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         randomSequence = new int[]{10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
-        fizzBuzz = new FizzBuzz(quickSort);
+        fizzBuzz = new FizzBuzz(quickSort, mergeSort);
     }
 
     @Test

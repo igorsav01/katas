@@ -3,14 +3,10 @@ package com.home.katas.fizzbuzz.useCases;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.List;
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
-public class quickSortTest {
+public class QuickSortTest {
 
     private QuickSort quickSort;
 

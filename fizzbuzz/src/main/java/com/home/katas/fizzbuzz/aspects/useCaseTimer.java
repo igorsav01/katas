@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class useCaseTimer {
 
     @Around("execution(* com.home.katas.fizzbuzz.useCases.*.*(..))")
-    public Object timeQuickSortAdvice(ProceedingJoinPoint proceedingJoinPoint){
+    public Object timeSortAdvice(ProceedingJoinPoint proceedingJoinPoint){
         long startTime = System.nanoTime();
 
         Object value = null;
@@ -23,7 +23,9 @@ public class useCaseTimer {
         long endTime = System.nanoTime();
         long executionTime = (endTime - startTime)/1000000;
 
-        System.out.println(String.format("finished %s in %d", proceedingJoinPoint.getSignature().getName(),  executionTime));
+        System.out.println(String.format("finished %s of %s in %d", proceedingJoinPoint.getSignature().getName()
+                , proceedingJoinPoint.getSignature().getDeclaringType().getName()
+                , executionTime));
 
         return value;
     }

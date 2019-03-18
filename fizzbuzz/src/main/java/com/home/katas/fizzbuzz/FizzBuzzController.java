@@ -36,6 +36,7 @@ public class FizzBuzzController {
     @RequestMapping(value="/sequence/size/{size}", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public FizzBuzzResponse getRandomNumberSequence(@PathVariable int size){
+        System.out.println();
         String result = fizzBuzz.print(randomizer.generateSequence(size));
         return new FizzBuzzResponse(result);
     }

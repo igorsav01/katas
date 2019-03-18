@@ -1,16 +1,21 @@
 package com.home.katas.fizzbuzz;
 
+import com.home.katas.fizzbuzz.useCases.MergeSort;
 import com.home.katas.fizzbuzz.useCases.QuickSort;
+import com.home.katas.fizzbuzz.useCases.Sort;
 import org.springframework.stereotype.Component;
+
+import java.util.concurrent.CompletableFuture;
 
 @Component
 public class FizzBuzz {
 
-    private QuickSort quickSort;
+    private Sort quickSort;
+    private Sort mergeSort;
 
-    public FizzBuzz(QuickSort quickSort){
-
+    public FizzBuzz(QuickSort quickSort, MergeSort mergeSort){
         this.quickSort = quickSort;
+        this.mergeSort = mergeSort;
     }
 
     public String print(int from, int to) {
@@ -19,8 +24,21 @@ public class FizzBuzz {
         }
         return fizzBuzzNumbers(from, to);
     }
+
     public String print(int[] unsortedArray){
-        return fizzBuzzSortedArray(quickSort.sortArray(unsortedArray));
+        CompletableFuture<int[]> mergeSortFuture = CompletableFuture.supplyAsync(() -> mergeSort.sortArray(unsortedArray.clone()));
+        CompletableFuture<int[]> quickSortFuture = CompletableFuture.supplyAsync( () -> quickSort.sortArray(unsortedArray.clone()));
+
+        CompletableFuture<Object> resultFuture = CompletableFuture.anyOf(quickSortFuture, mergeSortFuture);
+
+        //mergeSort.sortArray(unsortedArray.clone());
+        //return fizzBuzzSortedArray(quickSort.sortArray(unsortedArray.clone()));
+        try {
+            return fizzBuzzSortedArray((int[])resultFuture.get());
+        }
+        catch(Throwable t){
+            return t.getMessage();
+        }
     }
 
     private String fizzBuzzNumbers(int from, int to) {

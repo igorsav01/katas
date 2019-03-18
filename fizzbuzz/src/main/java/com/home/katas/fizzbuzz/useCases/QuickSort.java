@@ -3,7 +3,7 @@ package com.home.katas.fizzbuzz.useCases;
 import org.springframework.stereotype.Component;
 
 @Component
-public class QuickSort {
+public class QuickSort implements Sort{
 
     /* This function takes last element as pivot,
            places the pivot element at its correct
@@ -11,7 +11,7 @@ public class QuickSort {
            smaller (smaller than pivot) to left of
            pivot and all greater elements to right
            of pivot */
-    int partition(int[] arr, int low, int high) {
+    protected int partition(int[] arr, int low, int high) {
         int pivot = arr[high];
         int i = (low - 1); // index of smaller element
         for (int j = low; j < high; j++) {
@@ -35,7 +35,8 @@ public class QuickSort {
         return i + 1;
     }
 
-    void sort(int[] arr, int start, int end)
+    @Override
+    public void sort(int[] arr, int start, int end)
     {
         if (start < end)
         {
@@ -46,6 +47,7 @@ public class QuickSort {
         }
     }
 
+    @Override
     public int[] sortArray(int[] arrayToSort){
         sort(arrayToSort, 0, arrayToSort.length - 1);
         return arrayToSort;

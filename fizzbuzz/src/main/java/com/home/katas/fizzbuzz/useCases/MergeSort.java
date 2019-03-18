@@ -1,6 +1,9 @@
 package com.home.katas.fizzbuzz.useCases;
 
-public class mergeSort {
+import org.springframework.stereotype.Component;
+
+@Component
+public class MergeSort implements Sort{
 
     private void merge(int[] arr, int left, int middle, int right) {
         int leftSize = middle - left + 1;
@@ -41,6 +44,7 @@ public class mergeSort {
         }
     }
 
+    @Override
     public void sort(int[] arr, int start, int end) {
         if (start < end) {
             int middle = (start + end) / 2;
@@ -50,5 +54,11 @@ public class mergeSort {
 
             merge(arr, start, middle, end);
         }
+    }
+
+    @Override
+    public int[] sortArray(int[] arrayToSort) {
+        sort(arrayToSort, 0, arrayToSort.length - 1);
+        return arrayToSort;
     }
 }
