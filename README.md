@@ -1,1 +1,2 @@
 # katas
+Practicing development patterns
